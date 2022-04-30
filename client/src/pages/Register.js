@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import {Formik, Form, Field, ErrorMessage} from 'formik';
 import * as yup from 'yup';
 import axios from 'axios';
-import RegisterModal from "./modals/RegisterModal";
+import RegisterModal from "./Modals/RegisterModal";
 
 function Register() {
 

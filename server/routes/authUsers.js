@@ -12,7 +12,7 @@ router.post("/register", async (req, res) => {
     })) {
         return res.status(400).json({
             message: "User already exists"
-        });
+});
     } else {
         bcrypt.hash(req.body.password, 10).then((hash) => {
             User.create({
@@ -23,7 +23,7 @@ router.post("/register", async (req, res) => {
                 password: hash,
                 isAdmin: 1,
                 isAbled: 1
-            })
+})
         })
         return res.status(200).json({
             message: "User registered"
