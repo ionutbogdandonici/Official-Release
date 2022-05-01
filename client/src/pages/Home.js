@@ -13,25 +13,25 @@ function Home() {
           src={happyFelling}
           alt="HappyFelling"
         />
-        <h1 className="text-5xl font-bold mt-4">Keep in Touch</h1>
+        <h1 className="text-5xl font-bold mt-4 text-zinc-800">Keep in Touch</h1>
         <p className="text-base font-medium text-zinc-600 mt-2">
-          A happy place where you can be who you really are without many
-          thoughts
+          An happy place where you can be who you really are, without many
+          thoughts!
         </p>
       </div>
       <div className="w-full lg:w-auto mt-16 lg:mr-24">
-        <div className="lg:bg-white bg-transparent lg:rounded-xl lg:shadow-md py-16 px-4 lg:px-8">
+        <div className="lg:border-2 lg:border-zinc-200 lg:bg-white  bg-transparent lg:rounded-xl lg:shadow-md py-10 px-4 lg:px-8">
           <Link to={"/login"}>
             <Button decoration="primary" type="button" fullWidth={true}>
               Access
             </Button>
           </Link>
-          <p className="text-center my-2 text-sm font-medium text-zinc-600">
+          <p className="text-center my-4 text-sm font-normal text-zinc-500">
             Not registered yet?
           </p>
           <Link to={"/register"}>
             <Button decoration="secondary" type="button" fullWidth={true}>
-              Registere for free!
+              Register for free!
             </Button>
           </Link>
         </div>
