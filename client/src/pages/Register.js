@@ -4,6 +4,7 @@ import {Formik, Form, Field, ErrorMessage} from 'formik';
 import * as yup from 'yup';
 import axios from 'axios';
 import RegisterModal from "./Modals/RegisterModal";
+import InputField from "./Components/InputField";
 
 function Register() {
 
@@ -51,64 +52,14 @@ function Register() {
                     onSubmit={onSubmit}>
                 <Form>
                     <div className="flex flex-col lg:flex-row lg:space-x-8">
-                        <div className="w-full">
-                            <label className="block text-neutral-300 text-sm font-semibold mb-2" htmlFor="firstName">First
-                                Name</label>
-                            <Field
-                                className="bg-neutral-800 border border-neutral-700 rounded-md text-sm w-full py-3 px-4 text-white placeholder:text-neutral-500"
-                                type="text" id="firstName" name="firstName"
-                                placeholder="Insert your first name"
-                                autoComplete="off"
-                            />
-                            <ErrorMessage name={'firstName'} component="div" className="text-red-500 text-sm mt-2"/>
-                        </div>
-                        <div className="w-full mt-2 lg:mt-0">
-                            <label className="block text-neutral-300 text-sm font-semibold mb-2" htmlFor="lastName">Last
-                                Name</label>
-                            <Field
-                                className="bg-neutral-800 border border-neutral-700 rounded-md text-sm w-full py-3 px-4 text-white placeholder:text-neutral-500"
-                                type="text" id="lastName" name="lastName"
-                                placeholder="Insert your last name"
-                                autoComplete="off"
-                            />
-                            <ErrorMessage name={'lastName'} component="div" className="text-red-500 text-sm mt-2"/>
-                        </div>
+                        <InputField name="firstName" label="First Name" type="text" placeholder="First Name" attributes="w-full" />
+                        <InputField name="lastName" label="Last Name" type="text" placeholder="Last Name" attributes="w-full" />
                     </div>
-                    <div className="mt-2 mb-2">
-                        <label className="block text-neutral-300 text-sm font-semibold mb-2"
-                               htmlFor="email">Email</label>
-                        <Field
-                            className="bg-neutral-800 border border-neutral-700 rounded-md text-sm w-full py-3 px-4 text-white placeholder:text-neutral-500"
-                            type="email" id="email" name="email"
-                            placeholder="Insert your email"
-                            autoComplete="off"
-                        />
-                        <ErrorMessage name={'email'} component="div" className="text-red-500 text-sm mt-2"/>
-                    </div>
+                    
+                    <InputField label="Email" placeholder="Please insert your email" name="email" type="email" />
                     <div className="flex flex-col lg:flex-row lg:space-x-8">
-                        <div className="w-full">
-                            <label className="block text-neutral-300 text-sm font-semibold mb-2"
-                                   htmlFor="password">Password</label>
-                            <Field
-                                className="bg-neutral-800 border border-neutral-700 rounded-md text-sm w-full py-3 px-4 text-white placeholder:text-neutral-500"
-                                type="password" id="password" name="password"
-                                placeholder="Insert your password"
-                                autoComplete="off"
-                            />
-                            <ErrorMessage name={'password'} component="div" className="text-red-500 text-sm mt-2"/>
-                        </div>
-                        <div className="w-full mt-2 lg:mt-0">
-                            <label className="block text-neutral-300 text-sm font-semibold mb-2"
-                                   htmlFor="confirmPassword">Confirm Password</label>
-                            <Field
-                                className="bg-neutral-800 border border-neutral-700 rounded-md text-sm w-full py-3 px-4 text-white placeholder:text-neutral-500"
-                                type="password" id="confirmPassword" name="confirmPassword"
-                                placeholder="Confirm your password"
-                                autoComplete="off"
-                            />
-                            <ErrorMessage name={'confirmPassword'} component="div"
-                                          className="text-red-500 text-sm mt-2"/>
-                        </div>
+                        <InputField name="password" label="Password" type="password" placeholder="Password" attributes="w-full" />
+                        <InputField name="confirmPassword" label="Confirm Password" type="password" placeholder="Confirm Password" attributes="w-full" />
                     </div>
                     <div className="form-check flex items-center mt-4">
                         <Field

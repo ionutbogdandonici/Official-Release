@@ -5,6 +5,7 @@ import * as yup from "yup";
 import axios from "axios";
 import LoginErrorModal from "./Modals/LoginErrorModal";
 import Button from "./Components/Button";
+import InputField from "./Components/InputField";
 
 function Login() {
   const navigate = useNavigate();
@@ -34,87 +35,62 @@ function Login() {
   };
 
   return (
-    <div className="container mx-auto lg:px-96 p-4 font-inter">
-      <div className="-m-4 text-center mb-16">
-        <h1 className="text-4xl font-bold mt-32">Keep in Touch</h1>
-        <p className="mt-1 text-zinc-400 font-normal">
-          A Simple Social Network
-        </p>
-      </div>
-      <Formik
-        className="flex flex-col"
-        initialValues={initailValues}
-        validationSchema={validationSchema}
-        onSubmit={handleSubmit}
-      >
-        <Form>
-          <div className="mb-6">
-            <label
-              className="block text-zinc-300 text-sm font-semibold mb-2"
-              htmlFor="email"
-            >
-              Email
-            </label>
-            <Field
-              className="bg-zinc-800 border border-zinc-700 rounded-md text-sm w-full py-3 px-4 text-white placeholder:text-zinc-500"
-              type="email"
-              id="email"
-              placeholder="Insert your email here"
+    <div className="container mx-auto flex flex-col lg:grid lg:grid-cols-3">
+      <div className="col-start-2 col-end-3 p-4">
+        <div className="-m-4 text-center mb-16">
+          <h1 className="text-4xl font-bold mt-32">Keep in Touch</h1>
+          <p className="mt-1 text-zinc-400 font-normal">
+            A Simple Social Network
+          </p>
+        </div>
+        <Formik
+          className="flex flex-col"
+          initialValues={initailValues}
+          validationSchema={validationSchema}
+          onSubmit={handleSubmit}
+        >
+          <Form>
+            <InputField
+              placeholder="Please insert your email"
               name="email"
-              autoComplete="  off"
+              type="email"
+              label="Email"
             />
-            <ErrorMessage
-              name={"email"}
-              component="div"
-              className="text-red-500 text-sm mt-2"
-            />
-          </div>
-          <div className="">
-            <label className="block text-zinc-300 text-sm font-semibold mb-2">
-              Password
-            </label>
-            <Field
-              className="bg-neutral-800 border border-neutral-700 rounded-md text-sm w-full py-3 px-4 text-white placeholder:text-neutral-500"
-              type="password"
-              id="password"
-              placeholder="Insert your password here"
+            <InputField
+              placeholder="Please insert your password"
               name="password"
-              autoComplete="off"
+              type="password"
+              label="Password"
             />
-            <ErrorMessage
-              name={"password"}
-              component="div"
-              className="text-red-500 text-sm mt-2"
-            />
-          </div>
-          <div className="mt-2 mb-12">
-            <Link to="/forgotPassword" className="text-xs text-neutral-600">
-              Forgot password?
-            </Link>
-          </div>
-          <div>
-            <Button
-              decoration="primary"
-              type="submit"
-              fullWidth={true}
-              onClick={handleSubmit}
-            >
-              Login
-            </Button>
-            <div className="mt-2">
-              <p className="text-xs text-neutral-600 text-center mb-2">
-                Don't have an account yet?
-              </p>
-              <Link to="/register">
-                <button className="bg-neutral-700 text-white text-base font-semibold w-full py-3 rounded-md">
-                  Register
-                </button>
+            <div className="mt-2 mb-12">
+              <Link to="/forgotPassword" className="text-xs text-neutral-600">
+                Forgot password?
               </Link>
             </div>
-          </div>
-          {isOpen && <LoginErrorModal setIsOpen={setIsOpen} />}
-        </Form>
-      </Formik>
+            <div>
+              <Button
+                decoration="primary"
+                type="submit"
+                fullWidth={true}
+                onClick={handleSubmit}
+              >
+                Login
+              </Button>
+              <div className="mt-2">
+                <p className="text-xs text-neutral-600 text-center mb-2">
+                  Don't have an account yet?
+                </p>
+                <Link to="/register">
+                  <button className="bg-neutral-700 text-white text-base font-semibold w-full py-3 rounded-md">
+                    Register
+                  </button>
+                </Link>
+              </div>
+            </div>
+            {isOpen && <LoginErrorModal setIsOpen={setIsOpen} />}
+          </Form>
+        </Formik>
+      </div>
     </div>
   );
 }
