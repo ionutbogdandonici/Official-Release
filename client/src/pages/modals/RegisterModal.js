@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { RiCloseLine } from "react-icons/ri";
 
 const RegisterModal = ({ setIsOpen, status }) => {
     if (status === "200") return <div className="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true"></div>;

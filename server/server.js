@@ -15,6 +15,6 @@ app.use("/auth", authRouter);
 
 db.sequelize.sync().then(() => {
     app.listen(3030, function () {
-        console.log('Ascoltando sulla porta 3030');
+        console.log('Listening on port 3030!');
     });
 });

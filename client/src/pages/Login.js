@@ -45,7 +45,7 @@ function Login() {
                         <InputField placeholder="Please insert your email" name="email" type="email" label="Email" />
                         <InputField placeholder="Please insert your password" name="password" type="password" label="Password" />
                         <div className="mt-2 mb-12">
-                            <Link to="/forgotPassword" className="text-xs text-neutral-500">
+                            <Link to="/login/forgotPassword" className="text-xs text-neutral-500">
                                 Forgot password?
                             </Link>
                         </div>
