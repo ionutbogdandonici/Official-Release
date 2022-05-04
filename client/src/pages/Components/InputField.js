@@ -4,12 +4,12 @@ import { Field, ErrorMessage } from "formik";
 const InputField = ({ label, placeholder, name, type, attributes, autoComplete }) => {
     return (
         <div className={"my-2 " + attributes}>
-            <label htmlFor={name} className="block text-sm font-semibold text-zinc-500 mb-2">
+            <label htmlFor={name} className="block text-sm font-medium text-zinc-700 mb-1">
                 {label}
             </label>
             <Field
                 autoComplete={autoComplete || "off"}
-                className="bg-zinc-200 border border-zinc-400 rounded-md text-sm w-full py-3 px-4 text-zinc-800 placeholder:text-zinc-500"
+                className="p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 shadow-sm block w-full border border-zinc-300 rounded-md text-base"
                 id={name}
                 name={name}
                 type={type}

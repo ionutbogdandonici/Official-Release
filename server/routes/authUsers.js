@@ -12,8 +12,9 @@ router.post("/register", async (req, res) => {
             where: { email: req.body.email },
         })
     ) {
-        return res.status(400).json({
-            message: "User already exists",
+        return res.json({
+            header: "Error",
+            body: "User already exists",
         });
     } else {
         bcrypt.hash(req.body.password, 10).then((hash) => {
@@ -23,12 +24,13 @@ router.post("/register", async (req, res) => {
                 imageProfile: null,
                 email: req.body.email,
                 password: hash,
-                isAdmin: 1,
+                isAdmin: 0,
                 isAbled: 1,
             });
         });
-        return res.status(200).json({
-            message: "User registered",
+        return res.json({
+            header: "Success",
+            body: "User registered",
         });
     }
 });
@@ -45,40 +47,44 @@ router.post("/login", async (req, res) => {
     // Se non esiste
     if (!user) {
         return res.json({
-            error: "Utente non esistente",
+            header: "Error",
+            body: "The email or password is incorrect, please try again or register",
         });
     } else {
         bcrypt.compare(password, user.password).then((match) => {
             if (!match) {
-                return res.status(400).json({
-                    error: "Password errata",
+                return res.json({
+                    header: "Error",
+                    body: "The email or password is incorrect, please try again or register",
                 });
             } else {
                 // Creo il token di autenticazione
                 const accessToken = sign({ id: user.id, email: user.email }, "PAWM_JWT_SECRET");
                 // Restituisco il token al client
-                res.status(200).json({
-                    accessToken: accessToken,
-                    user: {
-                        id: user.id,
-                        email: user.email,
+                res.json({
+                    header: "Success",
+                    body: {
+                        accessToken: accessToken,
+                        user: {
+                            id: user.id,
+                            email: user.email,
+                        },
                     },
-                    success: true,
                 });
             }
         });
     }
 });
 
-router.post("/forgotPassword", async (req, res) => {
+router.post("/login/forgotPassword", async (req, res) => {
     const user = await User.findOne({
         where: {
             email: req.body.email,
         },
     });
     if (!user) {
-        return res.json({
-            error: "Utente non esistente",
+        return res.status(400).json({
+            error: "User not found",
         });
     } else {
         const newPassword = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
@@ -106,17 +112,15 @@ router.post("/forgotPassword", async (req, res) => {
                     subject: "Password recovery",
                     text: "Your new password is: \n\n" + newPassword,
                 };
-                transporter.sendMail(mailOptions, (error, info) =>{
+                transporter.sendMail(mailOptions, (error, info) => {
                     if (error) {
-                      console.log(error);
+                        console.log(error);
                     } else {
-                      console.log('Email sent: ' + info.response);
+                        console.log("Email sent: " + info.response);
                     }
-                  });
+                });
             });
-        })
-
-       
+        });
     }
 });
 

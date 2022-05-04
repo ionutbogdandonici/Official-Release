@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 .background-image {
   background-color: #f4f4f5;
   background-image: radial-gradient(

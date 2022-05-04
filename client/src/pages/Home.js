@@ -20,7 +20,7 @@ function Home() {
         </p>
       </div>
       <div className="w-full lg:w-auto mt-16 lg:mr-24">
-        <div className="lg:border-2 lg:border-zinc-200 lg:bg-white  bg-transparent lg:rounded-xl lg:shadow-md py-10 px-4 lg:px-8">
+        <div className="lg:bg-white lg:overflow-hidden lg:shadow lg:rounded-lg bg-transparent py-10 px-4 lg:px-8">
           <Link to={"/login"}>
             <Button decoration="primary" type="button" fullWidth={true}>
               Access

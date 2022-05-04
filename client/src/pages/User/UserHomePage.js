@@ -1,95 +1,127 @@
-import {Link} from 'react-router-dom';
-import {RiMenuLine} from 'react-icons/ri';
-import ForbbidenPage from '../Errors/ForbbidenPage';
+import ForbbidenPage from "../Errors/ForbbidenPage";
+import { Fragment } from "react";
+import { Disclosure, Menu, Transition } from "@headlessui/react";
+import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
+import { PlusSmIcon } from "@heroicons/react/solid";
+import Button from "../Components/Button";
+
+function classNames(...classes) {
+    return classes.filter(Boolean).join(" ");
+}
 
 function UserHomePage() {
-
-    if(localStorage.getItem('accessToken') === null) {
+    if (!localStorage.getItem("accessToken") === null) {
         return <ForbbidenPage />;
     }
 
     return (
-        <nav className="relative w-full flex flex-wrap items-center justify-between py-4 bg-gray-100 text-gray-500 hover:text-gray-700 focus:text-gray-700 shadow-lg navbar navbar-expand-lg navbar-light">
-            <div className="container-fluid w-full flex flex-wrap items-center justify-between px-6">
-                <button className="navbar-toggler text-gray-500 border-0 hover:shadow-none hover:no-underline py-2 px-2.5 bg-transparent focus:outline-none focus:ring-0 focus:shadow-none focus:no-underline" 
-                type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <RiMenuLine className="text-gray-500" size={30} />
-                </button>
-                <div className="collapse navbar-collapse flex-grow items-center" id="navbarSupportedContent">
-                    <Link className="flex items-center text-gray-900 hover:text-gray-900 focus:text-gray-900 mt-2 lg:mt-0 mr-1" to="#">
-                        <img src="https://mdbootstrap.com/img/logo/mdb-transaprent-noshadows.png" className='h-4' alt=""
-                            loading="lazy" />
-                    </Link>
-                    <ul className="navbar-nav flex flex-col pl-0 list-style-none mr-auto">
-                        <li className="nav-item p-2">
-                            <Link className="nav-link text-gray-500 hover:text-gray-700 focus:text-gray-700 p-0" to="#">Dashboard</Link>
-                        </li>
-                        <li className="nav-item p-2">
-                            <Link class="nav-link text-gray-500 hover:text-gray-700 focus:text-gray-700 p-0" to="#">Team</Link>
-                        </li>
-                        <li className="nav-item p-2">
-                            <Link className="nav-link text-gray-500 hover:text-gray-700 focus:text-gray-700 p-0" to="#">Projects</Link>
-                        </li>
-                    </ul>
-                </div>
-
-                <div className="flex items-center relative">
-                    <Link className="text-gray-500 hover:text-gray-700 focus:text-gray-700 mr-4" to="#">
-                        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="shopping-cart"
-                            class="w-4" role="img" xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 576 512">
-                            <path fill="currentColor"
-                                d="M528.12 301.319l47.273-208C578.806 78.301 567.391 64 551.99 64H159.208l-9.166-44.81C147.758 8.021 137.93 0 126.529 0H24C10.745 0 0 10.745 0 24v16c0 13.255 10.745 24 24 24h69.883l70.248 343.435C147.325 417.1 136 435.222 136 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-15.674-6.447-29.835-16.824-40h209.647C430.447 426.165 424 440.326 424 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-22.172-12.888-41.332-31.579-50.405l5.517-24.276c3.413-15.018-8.002-29.319-23.403-29.319H218.117l-6.545-32h293.145c11.206 0 20.92-7.754 23.403-18.681z">
-                            </path>
-                        </svg>
-                    </Link>
-                    <div className="dropdown relative">
-                        <Link className="text-gray-500 hover:text-gray-700 focus:text-gray-700 mr-4 dropdown-toggle hidden-arrow flex items-center" to="#" id="dropdownMenuButton1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="bell"
-                                className="w-4" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                                <path fill="currentColor"
-                                    d="M224 512c35.32 0 63.97-28.65 63.97-64H160.03c0 35.35 28.65 64 63.97 64zm215.39-149.71c-19.32-20.76-55.47-51.99-55.47-154.29 0-77.7-54.48-139.9-127.94-155.16V32c0-17.67-14.32-32-31.98-32s-31.98 14.33-31.98 32v20.84C118.56 68.1 64.08 130.3 64.08 208c0 102.3-36.15 133.53-55.47 154.29-6 6.45-8.66 14.16-8.61 21.71.11 16.4 12.98 32 32.1 32h383.8c19.12 0 32-15.6 32.1-32 .05-7.55-2.61-15.27-8.61-21.71z">
-                                </path>
-                            </svg>
-                            <span className="text-white bg-red-700 absolute rounded-full text-xs -mt-2.5 ml-2 py-0 px-1.5">1</span>
-                        </Link>
-                        <ul className="dropdown-menu min-w-max absolute hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded-lg shadow-lg mt-1 m-0 bg-clip-padding border-none left-auto right-0" aria-labelledby="dropdownMenuButton1">
-                            <li>
-                                <Link className="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100" to="#">Action</Link>
-                            </li>
-                            <li>
-                                <Link className="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100" to="#">Another action</Link>
-                            </li>
-                            <li>
-                                <Link className="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100" to="#">Something else here</Link>
-                            </li>
-                        </ul>
+        <Disclosure as="nav" className="bg-white shadow">
+            {({ open }) => (
+                <>
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="flex justify-between h-16">
+                            <div className="flex">
+                                <div className="-ml-2 mr-2 flex items-center md:hidden">
+                                    {/* Mobile menu button */}
+                                    <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-zinc-400 hover:text-zinc-500 hover:bg-zinc-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
+                                        <span className="sr-only">Open main menu</span>
+                                        {open ? <XIcon className="block h-6 w-6" aria-hidden="true" /> : <MenuIcon className="block h-6 w-6" aria-hidden="true" />}
+                                    </Disclosure.Button>
+                                </div>
+                                <div className="flex-shrink-0 flex items-center">
+                                    <h1 className="block h-8 w-auto text-2xl font-semibold">KiT</h1>
+                                </div>
+                                <div className="hidden md:ml-6 md:flex md:space-x-8">
+                                    {/* Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" */}
+                                    <a href="#" className="border-blue-500 text-zinc-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                                        Home
+                                    </a>
+                                </div>
+                            </div>
+                            <div className="flex items-center">
+                                <div className="flex-shrink-0">
+                                    <Button type='button' decoration="primary" hasIcon={true}>
+                                        <PlusSmIcon className="-ml-1 mr-2 h-5 w-5 my-auto" aria-hidden="true" />
+                                        <span>New Post</span>
+                                    </Button>                                </div>
+                                <div className="hidden md:ml-4 md:flex-shrink-0 md:flex md:items-center">
+                                    {/* Profile dropdown */}
+                                    <Menu as="div" className="ml-3 relative">
+                                        <div>
+                                            <Menu.Button className="bg-white rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                                <span className="sr-only">Open user menu</span>
+                                                <img className="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
+                                            </Menu.Button>
+                                        </div>
+                                        <Transition as={Fragment} enter="transition ease-out duration-200" enterFrom="transform opacity-0 scale-95" enterTo="transform opacity-100 scale-100" leave="transition ease-in duration-75" leaveFrom="transform opacity-100 scale-100" leaveTo="transform opacity-0 scale-95">
+                                            <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-zinc ring-opacity-5 focus:outline-none">
+                                                <Menu.Item>
+                                                    {({ active }) => (
+                                                        <a href="#" className={classNames(active ? "bg-zinc-100" : "", "block px-4 py-2 text-sm text-zinc-700")}>
+                                                            Your Profile
+                                                        </a>
+                                                    )}
+                                                </Menu.Item>
+                                                <Menu.Item>
+                                                    {({ active }) => (
+                                                        <a href="#" className={classNames(active ? "bg-zinc-100" : "", "block px-4 py-2 text-sm text-zinc-700")}>
+                                                            Settings
+                                                        </a>
+                                                    )}
+                                                </Menu.Item>
+                                                <Menu.Item>
+                                                    {({ active }) => (
+                                                        <a href="#" className={classNames(active ? "bg-zinc-100" : "", "block px-4 py-2 text-sm text-zinc-700")}>
+                                                            Sign out
+                                                        </a>
+                                                    )}
+                                                </Menu.Item>
+                                            </Menu.Items>
+                                        </Transition>
+                                    </Menu>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="dropdown relative">
-                        <Link class="dropdown-toggle flex items-center hidden-arrow" to="#" id="dropdownMenuButton2" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="https://mdbootstrap.com/img/new/avatars/2.jpg" class="rounded-full"
-                                className='w-6 h-6' alt="" loading="lazy" />
-                        </Link>
-                        <ul className="dropdown-menu min-w-max absolute hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded-lg shadow-lg mt-1 m-0 bg-clip-padding border-none left-auto right-0" aria-labelledby="dropdownMenuButton2">
-                            <li>
-                                <Link className="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100" to="#">Action</Link>
-                            </li>
-                            <li>
-                                <Link className="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100" to="#">Another action</Link>
-                            </li>
-                            <li>
-                                <Link className="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100" to="#">Something else here</Link>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </nav>
 
+                    <Disclosure.Panel className="md:hidden">
+                        <div className="pt-2 pb-3 space-y-1">
+                            {/* Current: "bg-indigo-50 border-indigo-500 text-indigo-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" */}
+                            <Disclosure.Button as="a" href="#" className="bg-indigo-50 border-indigo-500 text-indigo-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium sm:pl-5 sm:pr-6">
+                                Home
+                            </Disclosure.Button>
+                        </div>
+                        <div className="pt-4 pb-3 border-t border-gray-200">
+                            <div className="flex items-center px-4 sm:px-6">
+                                <div className="flex-shrink-0">
+                                    <img className="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
+                                </div>
+                                <div className="ml-3">
+                                    <div className="text-base font-medium text-gray-800">Tom Cook</div>
+                                    <div className="text-sm font-medium text-gray-500">tom@example.com</div>
+                                </div>
+                                <button type="button" className="ml-auto flex-shrink-0 bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                    <span className="sr-only">View notifications</span>
+                                    <BellIcon className="h-6 w-6" aria-hidden="true" />
+                                </button>
+                            </div>
+                            <div className="mt-3 space-y-1">
+                                <Disclosure.Button as="a" href="#" className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 sm:px-6">
+                                    Your Profile
+                                </Disclosure.Button>
+                                <Disclosure.Button as="a" href="#" className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 sm:px-6">
+                                    Settings
+                                </Disclosure.Button>
+                                <Disclosure.Button as="a" href="#" className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 sm:px-6">
+                                    Sign out
+                                </Disclosure.Button>
+                            </div>
+                        </div>
+                    </Disclosure.Panel>
+                </>
+            )}
+        </Disclosure>
     );
-
 }
 
 export default UserHomePage;

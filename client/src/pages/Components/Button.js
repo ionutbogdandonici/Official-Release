@@ -1,10 +1,10 @@
 import React from 'react';
 
-const defaultSettings = 'text-base font-semibold py-3 px-4 rounded-md';
+const defaultSettings = 'border px-4 py-2 shadow-sm text-base font-medium rounded-md';
 
-const primaryStyle = 'bg-blue-700 text-white'
-const secondaryStyle = 'bg-zinc-700 text-white';
-const dangerStyle = 'bg-red-700 text-white';
+const primaryStyle = 'border-transparent text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
+const secondaryStyle = 'border-gray-300 text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500';
+const dangerStyle = 'border-transparent bg-red-600 text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500';
 const successStyle = 'bg-green-700 text-white';
 const warningStyle = 'bg-yellow-600 text-white';
 
@@ -25,9 +25,9 @@ const getStyle = (style) => {
     }
 }
 
-const Button = ({children, decoration, fullWidth, margin, onClick, type}) => {
+const Button = ({children, decoration, fullWidth, margin, onClick, type, hasIcon}) => {
     return(
-        <button type={type} onClick={onClick} className={defaultSettings + ' ' + getStyle(decoration) + ' ' + (fullWidth ? 'w-full' : ' ') + ' ' + margin} >
+        <button type={type} onClick={onClick} className={ (hasIcon ? 'flex flex-row items-center' : '') + defaultSettings + ' ' + getStyle(decoration) + ' ' + (fullWidth ? 'w-full' : ' ') + ' ' + margin} >
             {children}
         </button>
     )

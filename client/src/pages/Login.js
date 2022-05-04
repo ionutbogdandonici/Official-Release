@@ -3,14 +3,15 @@ import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form } from "formik";
 import * as yup from "yup";
 import axios from "axios";
-import LoginErrorModal from "./Modals/LoginErrorModal";
+import Modal from "./Components/Modal";
 import Button from "./Components/Button";
 import InputField from "./Components/InputField";
 
 function Login() {
-    const navigate = useNavigate();
+    const navigator = useNavigate();
 
-    const [isOpen, setIsOpen] = useState(false);
+    const [show, setShow] = useState(false);
+    const [serverResponse, setServerResponse] = useState({});
 
     const initailValues = {
         email: "",
@@ -26,8 +27,12 @@ function Login() {
 
     const handleSubmit = (data) => {
         axios.post("http://localhost:3030/auth/login", data).then((res) => {
-            navigate("/");
-            console.log(res);
+            if (res.data.header === "Success") {
+                navigator("/user/" + res.data.body.user.id);
+            } else {
+                setShow(true);
+                setServerResponse(res.data);
+            }
         });
     };
 
@@ -50,19 +55,21 @@ function Login() {
                             </Link>
                         </div>
                         <div>
-                            <Button decoration="primary" type="submit" fullWidth={true} onClick={handleSubmit}>
+                            <Button decoration="primary" type="submit" fullWidth={true}>
                                 Login
                             </Button>
                             <div className="mt-2">
                                 <p className="text-xs text-neutral-600 text-center mb-2">Don't have an account yet?</p>
                                 <Link to="/register">
-                                    <button className="bg-neutral-700 text-white text-base font-semibold w-full py-3 rounded-md">Register</button>
+                                    <Button decoration="secondary" type="button" fullWidth={true}>
+                                        Register
+                                    </Button>
                                 </Link>
                             </div>
                         </div>
-                        {isOpen && <LoginErrorModal setIsOpen={setIsOpen} />}
                     </Form>
                 </Formik>
+                {<Modal type="danger" data={serverResponse} show={show} onClose={() => setShow(false)} />}
             </div>
         </div>
     );

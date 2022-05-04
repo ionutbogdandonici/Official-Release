@@ -3,12 +3,15 @@ import { Link } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 import axios from "axios";
-import RegisterModal from "./Modals/RegisterModal";
 import InputField from "./Components/InputField";
+import Button from "./Components/Button";
+import Modal from "./Components/Modal";
 
 function Register() {
-    const [isOpen, setIsOpen] = useState(false);
-    const [status, setStatus] = useState("");
+
+    const [show, setShow] = useState(false);
+    const [modal, setModal] = useState({});
+
 
     const initialValues = {
         firstName: "",
@@ -35,15 +38,24 @@ function Register() {
         .defined();
 
     const onSubmit = (data) => {
-        console.log(data);
         axios.post("http://localhost:3030/auth/register", data).then((res) => {
-            if (res.status === 200) {
-                setStatus("200");
-            } else if (res.status === 400) {
-                setStatus("400");
+            if(res.data.header === "Success"){
+                setModal({
+                    type: "success",
+                    header: "",
+                    body: "User registered"
+                })
+            }else{
+                setModal({
+                    type: "danger",
+                    header: "Error",
+                    body: "User already exists"
+                })
             }
         });
-        setIsOpen(true);
+
+        
+        setShow(true);
     };
 
     return (
@@ -59,7 +71,7 @@ function Register() {
                 </div>
                 <Formik className="flex flex-col" initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
                     <Form>
-                        <div className="lg:bg-white lg:border-2 lg:border-zinc-200 lg:rounded-xl lg:p-4 lg:shadow-md pb-6 my-12">
+                        <div className="lg:bg-white lg:overflow-hidden lg:border-zinc-200 lg:rounded-lg lg:px-4 lg:py-5 lg:shadow pb-6 my-12">
                             <div className="flex flex-col lg:flex-row lg:space-x-8">
                                 <InputField name="firstName" label="First Name" type="text" placeholder="First Name" attributes="w-full" />
                                 <InputField name="lastName" label="Last Name" type="text" placeholder="Last Name" attributes="w-full" />
@@ -80,21 +92,18 @@ function Register() {
                         </div>
 
                         <div className="mt-16">
-                            <button className="bg-blue-700 text-white text-base font-semibold w-full py-3 rounded-md" type="submit">
-                                Register
-                            </button>
+                            <Button type="submit" decoration="primary" fullWidth={true}>Register</Button>
                             <div className="mt-2">
                                 <p className="text-xs text-neutral-600 text-center mb-2">Already have an account?</p>
                                 <Link to="/login">
-                                    <button className="bg-neutral-700 text-white text-base font-semibold w-full py-3 rounded-md">Login</button>
+                                    <Button type="button" decoration="secondary" fullWidth={true}>Login</Button>
                                 </Link>
                             </div>
                         </div>
                     </Form>
                 </Formik>
+                {<Modal show={show} type={modal.type} onClose={() => setShow(false)} data={modal} />}
             </div>
-
-            {true && <RegisterModal setIsOpen={setIsOpen} status={status} />}
         </div>
     );
 }
