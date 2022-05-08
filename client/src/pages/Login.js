@@ -28,6 +28,8 @@ function Login() {
     const handleSubmit = (data) => {
         axios.post("http://localhost:3030/auth/login", data).then((res) => {
             if (res.data.header === "Success") {
+                sessionStorage.setItem("accessToken", res.data.body.accessToken);
+                sessionStorage.setItem("userProfileImage", res.data.body.user.imageProfile);
                 navigator("/user/" + res.data.body.user.id);
             } else {
                 setShow(true);

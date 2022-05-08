@@ -9,7 +9,7 @@ const InputField = ({ label, placeholder, name, type, attributes, autoComplete }
             </label>
             <Field
                 autoComplete={autoComplete || "off"}
-                className="p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 shadow-sm block w-full border border-zinc-300 rounded-md text-base"
+                className="p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 shadow-sm block w-full border border-zinc-300 rounded-md text-base placeholder:text-zinc-400"
                 id={name}
                 name={name}
                 type={type}

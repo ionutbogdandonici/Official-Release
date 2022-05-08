@@ -3,7 +3,6 @@ const router = express.Router();
 const { User } = require("../models");
 const bcrypt = require("bcrypt");
 const { sign } = require("jsonwebtoken");
-const { auth } = require("../middleware/auth");
 const nodemailer = require("nodemailer");
 
 router.post("/register", async (req, res) => {
@@ -21,7 +20,7 @@ router.post("/register", async (req, res) => {
             User.create({
                 firstName: req.body.firstName,
                 lastName: req.body.lastName,
-                imageProfile: null,
+                imageProfile: req.body.imageProfile,
                 email: req.body.email,
                 password: hash,
                 isAdmin: 0,
@@ -65,10 +64,7 @@ router.post("/login", async (req, res) => {
                     header: "Success",
                     body: {
                         accessToken: accessToken,
-                        user: {
-                            id: user.id,
-                            email: user.email,
-                        },
+                        user: user,
                     },
                 });
             }

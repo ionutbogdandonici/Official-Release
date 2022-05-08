@@ -6,7 +6,7 @@ function NotFound() {
 
     return (
         <div className="">
-            <div className="bg-white min-h-screen px-4 py-16 sm:px-6 sm:py-64">
+            <div className="bg-transparent min-h-screen px-4 py-16 sm:px-6 sm:py-64">
                 <div className="max-w-max mx-auto">
                     <main className="sm:flex">
                         <p className="text-4xl font-extrabold text-blue-600 sm:text-5xl">404</p>

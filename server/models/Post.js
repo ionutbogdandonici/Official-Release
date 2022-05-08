@@ -1,13 +1,13 @@
 module.exports = (sequelize, DataTypes) => {
     const Post = sequelize.define('Post', {
-        content: {
-            type: DataTypes.TEXT,
+        title: {
+            type: DataTypes.STRING,
             allowNull: false,
             validate: {
                 notEmpty: true,
-            },
+            }
         },
-        description: {
+        content: {
             type: DataTypes.TEXT,
             allowNull: false,
             validate: {
@@ -28,6 +28,7 @@ module.exports = (sequelize, DataTypes) => {
             onDelete: 'CASCADE',
         });
     };
+    
 
     return Post;
 };

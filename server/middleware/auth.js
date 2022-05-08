@@ -1,14 +1,23 @@
-const {verify} = require('jsonwebtoken');
+const { verify } = require("jsonwebtoken");
 
-function verifyToken(req, res, next) {
-    const bearerHeader = req.headers['authorization'];
-    if(typeof bearerHeader !== 'undefined'){
-        const bearer = bearerHeader.split(' ')[1];
-        req.token = bearer;
-        next();
-    }else{
-        res.sendStatus(403);
+const validateToken = (req, res, next) => {
+    // Get auth header value
+    const accessToken = req.header("Access-Token");
+
+    // Check if token exists
+    if (!accessToken) {
+        return res.json("User not logged in");
     }
-}
 
-module.exports = verifyToken;
+    // Verify token
+    try {
+        const validToken = verify(accessToken, "PAWM_JWT_SECRET");
+        if (validToken) {
+            next();
+        }
+    } catch (err) {
+        return res.json("Token is not valid");
+    }
+};
+
+module.exports =  validateToken ;

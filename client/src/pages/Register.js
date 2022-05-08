@@ -38,6 +38,7 @@ function Register() {
         .defined();
 
     const onSubmit = (data) => {
+        data.imageProfile = `https://avatars.dicebear.com/api/human/${data.firstName}-${data.lastName}.svg`;
         axios.post("http://localhost:3030/auth/register", data).then((res) => {
             if(res.data.header === "Success"){
                 setModal({
@@ -53,8 +54,6 @@ function Register() {
                 })
             }
         });
-
-        
         setShow(true);
     };
 
