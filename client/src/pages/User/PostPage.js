@@ -6,8 +6,13 @@ import * as yup from "yup";
 import InputField from "../Components/InputField";
 import Button from "../Components/Button";
 import Comment from "../Components/Comment";
+import { useNavigate } from "react-router-dom";
+
 
 function PostPage() {
+    
+    const navigator = useNavigate();
+
     const [postData, setPostData] = useState({});
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState("");
@@ -56,6 +61,7 @@ function PostPage() {
             .then((res) => {
                 setComments([...comments, newComment]);
                 setNewComment("");
+                navigator(0);
             });
     };
 
