@@ -23,8 +23,6 @@ router.post("/register", async (req, res) => {
                 imageProfile: req.body.imageProfile,
                 email: req.body.email,
                 password: hash,
-                isAdmin: 0,
-                isAbled: 1,
             });
         });
         return res.json({
@@ -58,7 +56,15 @@ router.post("/login", async (req, res) => {
                 });
             } else {
                 // Creo il token di autenticazione
-                const accessToken = sign({ id: user.id, email: user.email }, "PAWM_JWT_SECRET");
+                const accessToken = sign(
+                    {
+                        id: user.id,
+                        email: user.email,
+                        firstName: user.firstName,
+                        lastName: user.lastName,
+                    },
+                    "PAWM_JWT_SECRET"
+                );
                 // Restituisco il token al client
                 res.json({
                     header: "Success",

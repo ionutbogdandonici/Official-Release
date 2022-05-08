@@ -33,7 +33,8 @@ function CreatePost() {
                     "Access-Token": sessionStorage.getItem("accessToken"),
                 }
             }).then((res) => {
-                navigator(`/user/${res.data}`);
+                console.log(res);
+                navigator(`/user/${res.data.body.userId}/home`);
             });
         };
 

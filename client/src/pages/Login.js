@@ -30,7 +30,7 @@ function Login() {
             if (res.data.header === "Success") {
                 sessionStorage.setItem("accessToken", res.data.body.accessToken);
                 sessionStorage.setItem("userProfileImage", res.data.body.user.imageProfile);
-                navigator("/user/" + res.data.body.user.id);
+                navigator("/user/" + res.data.body.user.id+"/home");
             } else {
                 setShow(true);
                 setServerResponse(res.data);

@@ -1,28 +1,32 @@
 module.exports = (sequelize, DataType) => {
-    const Comment = sequelize.define('Comment', {
-        id: {
-            type: DataType.INTEGER,
-            primaryKey: true,
-            autoIncrement: true,
-        },
+    const Comment = sequelize.define("Comment", {
         text: {
             type: DataType.STRING,
             allowNull: false,
+            validate: {
+                notEmpty: true,
+            },
         },
-        likes: {
-            type: DataType.INTEGER,
+        firstName: {
+            type: DataType.STRING,
             allowNull: false,
-            defaultValue: 0,
+            validate: {
+                notEmpty: true,
+            },
         },
-        userId: {
-            type: DataType.INTEGER,
+        lastName: {
+            type: DataType.STRING,
             allowNull: false,
+            validate: {
+                notEmpty: true,
+            },
         },
-        postId: {
-            type: DataType.INTEGER,
-            allowNull: false,
-        },
-    })
+    },
+    {
+        sequelize,
+        modelName: "Comment",
+        tableName: "comments",
+    });
 
-    return Comment
-}
+    return Comment;
+};

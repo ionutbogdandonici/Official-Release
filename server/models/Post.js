@@ -1,34 +1,50 @@
 module.exports = (sequelize, DataTypes) => {
-    const Post = sequelize.define('Post', {
-        title: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                notEmpty: true,
-            }
-        },
-        content: {
-            type: DataTypes.TEXT,
-            allowNull: false,
-            validate: {
-                notEmpty: true,
+    const Post = sequelize.define(
+        "Post",
+        {
+            title: {
+                type: DataTypes.STRING,
+                allowNull: false,
+                validate: {
+                    notEmpty: true,
+                },
+            },
+            content: {
+                type: DataTypes.TEXT,
+                allowNull: false,
+                validate: {
+                    notEmpty: true,
+                },
+            },
+            firstName: {
+                type: DataTypes.STRING,
+                allowNull: false,
+                validate: {
+                    notEmpty: true,
+                },
+            },
+            lastName: {
+                type: DataTypes.STRING,
+                allowNull: false,
+                validate: {
+                    notEmpty: true,
+                },
             },
         },
-        likes: {
-            type: DataTypes.INTEGER,
-            defaultValue: 0,
-            allowNull: false,
-        },
-    }, {});
+        {
+            sequelize,
+            modelName: "Post",
+            tableName: "posts",
+        }
+    );
 
     Post.associate = (models) => {
         Post.hasMany(models.Comment, {
-            foreignKey: 'postId',
-            as: 'comments',
-            onDelete: 'CASCADE',
+            foreignKey: "postId",
+            as: "comments",
+            onDelete: "CASCADE",
         });
     };
-    
 
     return Post;
 };

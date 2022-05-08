@@ -15,29 +15,15 @@ function classNames(...classes) {
 
 function HomePage() {
     // Main path for the user routing
-    const [path, setPath] = useState(window.location.pathname);
-
-    const [listOfPosts, setListOfPosts] = useState([]);
-
-    useEffect(() => {
-        axios
-            .get("http://localhost:3030/post/", {
-                headers: {
-                    "Access-Token": sessionStorage.getItem("accessToken"),
-                },
-            })
-            .then((res) => {
-                //setListOfPosts(res.data);
-                console.log(res.data);
-            });
-    }, []);
+    const userIdPath = window.location.pathname.charAt(6);
+    const path = "/user/" + userIdPath;
 
     if (!sessionStorage.getItem("accessToken")) {
         return <ForbbidenPage />;
     } else {
         return (
             <div>
-                <Disclosure as="nav" className="bg-white shadow">
+                <Disclosure as="nav" className="sticky top-0 z-40 w-full transition-colors duration-500 backdrop-blur bg-white/50  shadow ">
                     {({ open }) => (
                         <>
                             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -51,11 +37,13 @@ function HomePage() {
                                             </Disclosure.Button>
                                         </div>
                                         <div className="flex-shrink-0 flex items-center">
-                                            <h1 className="block h-8 w-auto text-2xl font-semibold">KiT</h1>
+                                            <Link to={path + "/home"}>
+                                                <h1 className="block h-8 w-auto text-2xl font-semibold">KiT</h1>
+                                            </Link>
                                         </div>
                                         <div className="hidden md:ml-6 md:flex md:space-x-8">
                                             {/* Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" */}
-                                            <Link to={path} className=" text-zinc-900 inline-flex items-center px-1 pt-1 text-sm font-medium">
+                                            <Link to={path + "/home"} className=" text-zinc-900 inline-flex items-center px-1 pt-1 text-sm font-medium">
                                                 Home
                                             </Link>
                                         </div>
@@ -136,9 +124,6 @@ function HomePage() {
                     )}
                 </Disclosure>
                 <div>
-                    {listOfPosts.map((post) => {
-                        return <Post key={post.id} post={post} />;
-                    })}
                     <Outlet className="" />
                 </div>
             </div>

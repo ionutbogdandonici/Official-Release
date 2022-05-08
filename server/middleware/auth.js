@@ -12,6 +12,7 @@ const validateToken = (req, res, next) => {
     // Verify token
     try {
         const validToken = verify(accessToken, "PAWM_JWT_SECRET");
+        req.user = validToken;
         if (validToken) {
             next();
         }
@@ -20,4 +21,4 @@ const validateToken = (req, res, next) => {
     }
 };
 
-module.exports =  validateToken ;
+module.exports = validateToken;

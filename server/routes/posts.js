@@ -1,40 +1,41 @@
 const express = require("express");
 const router = express.Router();
-const { Post, User } = require("../models");
+const { Post, Comment } = require("../models");
 const validateToken = require("../middleware/auth");
 const { verify } = require("jsonwebtoken");
 
 router.post("/publish", validateToken, async (req, res) => {
     const { title, content } = req.body;
 
-    const userId = verify(req.header("Access-Token"), "PAWM_JWT_SECRET").id;
-
     await Post.create({
         title,
         content,
-        likes: 0,
-        userId: userId,
+        firstName: req.user.firstName,
+        lastName: req.user.lastName,
+        userId: req.user.id,
     });
-    res.json(userId);
+
+    return res.json({
+        header: "Success",
+        body: {
+            userId: req.user.id,
+        },
+    });
 });
 
-const getUser = async (userId) => {
-    User.findOne({
-        where: {
-            id: userId,
-        }
-    }).then(user => {
-        return user.dataValues;
-    });
-}
-
 router.get("/", validateToken, async (req, res) => {
-    var listOfPosts = await Post.findAll();
-    listOfPosts.forEach((post, index) => {
-        Object.defineProperty(post.dataValues, "user", { value: getUser(post.userId) });
-        console.log(post);
+    const posts = await Post.findAll();
+    res.json(posts);
+});
+
+router.get("/:postId", validateToken, async (req, res) => {
+    const postId = req.params.postId;
+    const post = await Post.findOne({
+        where: {
+            id: postId,
+        },
     });
-    res.json(listOfPosts);
+    res.json(post);
 });
 
 module.exports = router;
