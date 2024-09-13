@@ -1,5 +1,7 @@
-# Official-Release
+# Official-Release: Social Network Project
 
-This is a Social Newtwork created as a project for the course 'Progettazione Applicazioni Web e Mobile' at University of Camerino
+### Overview
 
-All the project was developed by Bogdan Donici
+This repository contains the official release of a Social Network application developed as a project for the course "Progettazione Applicazioni Web e Mobile" at the University of Camerino.
+
+The project was conceptualized and developed entirely by me (Ionut Bogdan Donici) as a practical exploration into modern web and mobile application design.
